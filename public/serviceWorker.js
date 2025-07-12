@@ -45,3 +45,26 @@ self.addEventListener("activate", (event) => {
     })
   );
 });
+
+self.addEventListener('activate', event => {
+  event.waitUntil((async () => {
+    scheduleNotification();
+  })());
+});
+
+function scheduleNotification() {
+  const now = new Date();
+  const target = new Date();
+  target.setHours(8, 0, 0, 0);
+  if (now > target) {
+    target.setDate(target.getDate() + 1);
+  }
+  const delay = target.getTime() - now.getTime();
+
+  setTimeout(() => {
+    self.registration.showNotification('weather notification', {
+      body: "good morning!let's check today's weather",
+      tag: 'morning-weather'
+    });
+  }, delay);
+}
