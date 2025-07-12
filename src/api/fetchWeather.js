@@ -12,3 +12,13 @@ export const fetchWeather = async (cityName) => {
     })
     return data;
 }
+
+export const fetchWeatherByGeolocation = async (latitude, longitude) => {
+    const { data } = await axios.get(URL, {
+        params: {
+            q: `${latitude},${longitude}`,
+            key: API_KEY
+        }
+    })
+    return data;
+}
